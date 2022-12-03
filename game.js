@@ -1,7 +1,7 @@
 let canvas = document.getElementById("myCanvas");
 let context = canvas.getContext("2d");
-canvas.width = 1500;
-canvas.height = 900;
+canvas.width = 0.75*window.innerWidth;
+canvas.height = 0.75*window.innerHeight;
 canvas.style.background = "#5A5A5A";
 
 let comp_size = 60;
