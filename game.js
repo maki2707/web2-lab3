@@ -6,7 +6,7 @@ canvas.style.background = "#5A5A5A";
 
 let comp_size = 60;
 let direction = [-1,1]
-let colorArray = ["FF1178","FE0000","FFF205","01FFF4","7CF001"];
+let colorArray = ["FF1178","FE0000","FFF205","01FFF4","7CF001","8C00FC"];
 
 function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -19,7 +19,7 @@ function getSpeedChange(speed) {
 }
 
 function contains (rect, x, y) {
-    return (rect.posx <= x) && (x <= rect.posx + rect.width) && (rect.posy <= y) && (y <= rect.posy + rect.width);
+    return (x <= rect.posx + rect.width) && (rect.posx <= x) && (y <= rect.posy + rect.width) && (rect.posy <= y);
 }
 
 class Rectangle {
@@ -32,7 +32,7 @@ class Rectangle {
         this.posy = y; 
         this.color = colorArray.pop();
     }  
-    draw(context){
+    createRectangle(context){
         context.beginPath();
         context.lineWidth = 3;
         context.fillStyle = "#" + this.color; 
@@ -72,12 +72,12 @@ class Rectangle {
         }
         this.posx += this.speed_x;
         this.posy += this.speed_y; 
-        this.draw(context);
+        this.createRectangle(context);
     } 
 }
 let all_components = [];
 let numOfHits = 0;
-let n = getRandomNumber(2,6);
+let n = getRandomNumber(3,7);
 for (var i = 0; i < n; i++) 
 {
     let xpos = getRandomNumber(comp_size, (canvas.width - comp_size));
@@ -85,7 +85,7 @@ for (var i = 0; i < n; i++)
 
     let rect = new Rectangle(xpos, ypos);
     all_components.push(rect);
-    rect.draw(context)  
+    rect.createRectangle(context)  
 }
 canvas.addEventListener('click', function(event) {   
     let x = event.clientX;
@@ -102,7 +102,7 @@ canvas.addEventListener('click', function(event) {
 function updateGame() {
     requestAnimationFrame(updateGame);
     context.clearRect(0, 0, canvas.width, canvas.height);
-    context.font = "900 25px Verdana";
+    context.font = "900 Italic 25px Verdana";
     context.fillStyle = "white";
     context.textAlign = "right";      
     context.fillText("Broj generiranih komponenti: " + Math.round(n) , canvas.width - 15, 25);
